@@ -5,9 +5,10 @@
     <title></title>
     <link rel="stylesheet" href="{{asset('bootstrap-4/dist/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('bootstrap-4/dist/css/custom.css')}}">
+    <link rel="stylesheet" href="{{asset('jquery-loading-master/src/loading.css')}}">
+
   </head>
   <body>
-    {{-- boddy --}}
     <div class="container emp-profile">
                 <div class="row">
                     <div class="col-md-4">
@@ -73,13 +74,15 @@
                     </div>
                   </div>
 
-    {{--  --}}
     <script type="text/javascript" src="{{asset('bootstrap-4/dist/js/jquery.js')}}">
     </script>
     <script type="text/javascript" src="{{asset('bootstrap-4/dist/js/bootstrap.min.js')}}">
     </script>
+    <script type="text/javascript" src="{{asset('jquery-loading-master/dist/jquery.loading.min.js')}}">
+    </script>
     <script type="text/javascript">
       $(document).ready(function(){
+        $('html').loading({stoppable: true});
         var app_url = "{{env('APP_URL')}}";
         $.ajax({
           header : {'csrftoken' : '{{csrf_token()}}'},
@@ -87,44 +90,27 @@
           url: app_url + '/api/testing',
           dataType   :'JSON',
           success: function (response) {
-            console.log(response.data_api);
-            response.data_api.forEach(function(element){
-              // var gender = element.gender;
-              // var name = element.name;
-              // var image = element.image;
-              // var phone = element.phone;
-              // var cell = element.cell;
-              // var email = element.email;
-              // var dob_date = element.dob_date;
-              // var dob_age = element.dob_age;
-              // var address = element.address;
-              // var country = element.country;
-              // var country = element.city;
-              // var no_address = element.no_address;
-              // var postal_code = element.postal_code;
-              // var state  = element.state;
-              $('#image').html('<img src="'+element.image+'">');
-              $('#name').html('<span>'+element.name+'</span>');
-              $('#gender').html('<span>'+element.gender+'</span>');
-              $('#email').html('<span>'+element.email+'</span>');
-              $('#age').html('<span>'+element.dob_age+'</span>');
-              $('#dob').html('<span>'+element.dob_date+'</span>');
-              $('#phone_cell').html('<span>'+element.phone+' / '+element.cell+'</span>');
-              $('#address').html('<span>'+element.address+' '+element.no_address+', '+element.state+' </span>');
-              $('#city').html('<span>'+element.city+'</span>');
-              $('#country').html('<span>'+element.country+'</span>');
-              $('#postal_code').html('<span>'+element.postal_code+'</span>');
-
-
-            });
-
+            if (response.data_api.length > 0) {
+              response.data_api.forEach(function(element){
+                $('#image').html('<img src="'+element.image+'">');
+                $('#name').html('<span>'+element.name+'</span>');
+                $('#gender').html('<span>'+element.gender+'</span>');
+                $('#email').html('<span>'+element.email+'</span>');
+                $('#age').html('<span>'+element.dob_age+'</span>');
+                $('#dob').html('<span>'+element.dob_date+'</span>');
+                $('#phone_cell').html('<span>'+element.phone+' / '+element.cell+'</span>');
+                $('#address').html('<span>'+element.address+' '+element.no_address+', '+element.state+' </span>');
+                $('#city').html('<span>'+element.city+'</span>');
+                $('#country').html('<span>'+element.country+'</span>');
+                $('#postal_code').html('<span>'+element.postal_code+'</span>');
+              });
+              $('html').loading('stop');
+            }
           },
           error: function(response) {
             console.log(response.responseText);
-            // $('#msg_check').show();
           }
         });
-        // console.log(gender);
       });
     </script>
   </body>
