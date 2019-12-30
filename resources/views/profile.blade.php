@@ -9,7 +9,6 @@
   </head>
   <body>
     <div class="loader loader-default is-active" id="loader" data-text></div>
-
     <div class="container emp-profile">
                 <div class="row">
                     <div class="col-md-4">
@@ -79,8 +78,7 @@
     </script>
     <script type="text/javascript" src="{{asset('bootstrap-4/dist/js/bootstrap.min.js')}}">
     </script>
-    <script type="text/javascript" src="{{asset('jquery-loading-master/dist/jquery.loading.min.js')}}">
-    </script>
+    {{-- <script type="text/javascript" src="{{asset('js/custom.js')}}"></script> --}}
     <script type="text/javascript">
       $(document).ready(function(){
         $('#loader').show();
