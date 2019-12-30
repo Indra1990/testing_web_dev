@@ -5,10 +5,11 @@
     <title></title>
     <link rel="stylesheet" href="{{asset('bootstrap-4/dist/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('bootstrap-4/dist/css/custom.css')}}">
-    <link rel="stylesheet" href="{{asset('jquery-loading-master/src/loading.css')}}">
-
+    <link rel="stylesheet" href="{{asset('css-loader-master/dist/css-loader.css')}}">
   </head>
   <body>
+    <div class="loader loader-default is-active" id="loader" data-text></div>
+
     <div class="container emp-profile">
                 <div class="row">
                     <div class="col-md-4">
@@ -82,7 +83,7 @@
     </script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('html').loading({stoppable: true});
+        $('#loader').show();
         var app_url = "{{env('APP_URL')}}";
         $.ajax({
           header : {'csrftoken' : '{{csrf_token()}}'},
@@ -104,7 +105,7 @@
                 $('#country').html('<span>'+element.country+'</span>');
                 $('#postal_code').html('<span>'+element.postal_code+'</span>');
               });
-              $('html').loading('stop');
+              $('#loader').hide();
             }
           },
           error: function(response) {
